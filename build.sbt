@@ -1,10 +1,10 @@
 organization in ThisBuild := "com.theseventhsense.ec2akka"
-
-version in ThisBuild := "0.0.1-SNAPSHOT"
-
+bintrayOrganization in ThisBuild := Some("7thsense")
+licenses in ThisBuild += ("MIT", url("http://opensource.org/licenses/MIT"))
+version in ThisBuild := "0.0.1"
 scalaVersion in ThisBuild := "2.11.8"
-
-isSnapshot in ThisBuild := true
+isSnapshot in ThisBuild := false
+publishMavenStyle in ThisBuild := true
 
 val akkaVersion = "2.4.6"
 val awsSdkVersion = "1.10.77"
@@ -26,22 +26,24 @@ libraryDependencies in ThisBuild ++= akkaDependencies ++ awsDependencies
 val root = akkaEc2EcsProject
 
 lazy val akkaEc2EcsProject = Project("ec2akka", file("."))
+  .settings(publish := {})
   .aggregate(exampleProject)
   .aggregate(akkaEcsProject)
   .aggregate(akkaEc2Project)
 
 lazy val exampleProject = Project("example", file("./example"))
+  .settings(publish := {})
   .settings(libraryDependencies += "com.typesafe.akka" %% "akka-http-core" % akkaVersion)
   .enablePlugins(JavaAppPackaging)
   .dependsOn(akkaEcsProject)
 
-lazy val akkaEc2Project = Project("ec2", file("./ec2-akka"))
+lazy val akkaEc2Project = Project("ec2-akka", file("./ec2-akka"))
   .settings(Defaults.coreDefaultSettings: _*)
   .settings(
     scalacOptions in Compile ++= Seq("-encoding", "UTF-8", "-target:jvm-1.6", "-deprecation", "-feature", "-unchecked", "-Xlog-reflective-calls", "-Xlint")
   )
 
-lazy val akkaEcsProject = Project("ecs", file("./ecs-akka"))
+lazy val akkaEcsProject = Project("ecs-akka", file("./ecs-akka"))
   .dependsOn(akkaEc2Project)
   .settings(Defaults.coreDefaultSettings: _*)
   .settings(
