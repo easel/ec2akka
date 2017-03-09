@@ -1,15 +1,21 @@
 package com.theseventhsense.ec2akka
 
-import akka.actor.{ActorSystem, ExtendedActorSystem, Extension, ExtensionId, ExtensionIdProvider}
+import akka.actor.{
+  ActorSystem,
+  ExtendedActorSystem,
+  Extension,
+  ExtensionId,
+  ExtensionIdProvider
+}
 import akka.cluster.Cluster
 import com.amazonaws.auth._
 import com.amazonaws.auth.profile.ProfileCredentialsProvider
-import com.amazonaws.services.ec2.AmazonEC2Client
-import com.amazonaws.services.ecs.AmazonECSClient
+import com.amazonaws.services.ec2.{AmazonEC2Client, AmazonEC2ClientBuilder}
+import com.amazonaws.services.ecs.{AmazonECSClient, AmazonECSClientBuilder}
 import com.amazonaws.services.ecs.model.DescribeContainerInstancesRequest
 import com.typesafe.config.ConfigFactory
-import scala.collection.JavaConverters._
 
+import scala.collection.JavaConverters._
 import scala.util.Try
 
 /**
@@ -39,31 +45,32 @@ class ECSAkka(system: ExtendedActorSystem) extends Extension {
 
   val ecsClient = Try {
     val credsProviderChain = new Ec2AkkaCredentialsProviderChain()
-    val creds = credsProviderChain.getCredentials
-    val client = new AmazonEC2Client(creds)
-    val ecsClient = new AmazonECSClient()
+//    val creds = credsProviderChain.getCredentials
+//    val client = AmazonEC2ClientBuilder.standard().withCredentials(credsProviderChain).build()
+    val ecsClient = AmazonECSClientBuilder
+      .standard()
+      .withCredentials(credsProviderChain)
+      .build()
     ecsClient
   }.get
-  
-  def downUnavailableNodes = {
+
+  def downUnavailableNodes(): Unit = {
     cluster.state.unreachable
     val describeRequest = new DescribeContainerInstancesRequest()
     describeRequest.setCluster("seed")
     val response = ecsClient.describeContainerInstances(describeRequest)
     val instances = response.getContainerInstances.asScala
     instances.foreach { instance =>
-      instance. 
+      ()
     }
-    
-    
   }
 
   private def tryJoin(): Boolean = {
     //    val myId = "self"
     //    val isLeader = true
     //    if (isLeader) {
-    system.log.warning(
-        "component=aws-ecs at=this-node-is-leader-node id={}", myId)
+    system.log
+      .warning("component=aws-ecs at=this-node-is-leader-node id={}", myId)
     Cluster(system).join(address)
     true
     //    } else {
@@ -98,5 +105,3 @@ class AkkaAWSECSSettings(system: ActorSystem) {
 
   val tag = Try(config.getString("tag")).getOrElse("akka")
 }
-
-

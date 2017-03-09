@@ -11,5 +11,5 @@ class Ec2AkkaCredentialsProviderChain
         new EnvironmentVariableCredentialsProvider,
         new SystemPropertiesCredentialsProvider,
         new ProfileCredentialsProvider,
-        new InstanceProfileCredentialsProvider,
+        new InstanceProfileCredentialsProvider
     )
