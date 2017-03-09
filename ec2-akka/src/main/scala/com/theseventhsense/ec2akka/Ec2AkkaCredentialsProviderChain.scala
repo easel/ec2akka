@@ -7,9 +7,9 @@ import com.amazonaws.auth.{AWSCredentialsProviderChain, EnvironmentVariableCrede
   * Created by erik on 5/20/16.
   */
 class Ec2AkkaCredentialsProviderChain
-  extends AWSCredentialsProviderChain(
-          new EnvironmentVariableCredentialsProvider,
-          new SystemPropertiesCredentialsProvider,
-          new ProfileCredentialsProvider,
-          new InstanceProfileCredentialsProvider
-      )
+    extends AWSCredentialsProviderChain(
+        new EnvironmentVariableCredentialsProvider,
+        new SystemPropertiesCredentialsProvider,
+        new ProfileCredentialsProvider,
+        new InstanceProfileCredentialsProvider,
+    )

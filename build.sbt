@@ -6,8 +6,8 @@ scalaVersion in ThisBuild := "2.11.8"
 isSnapshot in ThisBuild := false
 publishMavenStyle in ThisBuild := true
 
-val akkaVersion = "2.4.6"
-val awsSdkVersion = "1.10.77"
+val akkaVersion = "2.4.17"
+val awsSdkVersion = "1.11.102"
 
 def akkaDependencies = Seq(
   "com.typesafe.akka" %% "akka-actor" % akkaVersion % "provided",

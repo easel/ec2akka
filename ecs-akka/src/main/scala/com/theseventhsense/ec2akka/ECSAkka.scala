@@ -6,7 +6,9 @@ import com.amazonaws.auth._
 import com.amazonaws.auth.profile.ProfileCredentialsProvider
 import com.amazonaws.services.ec2.AmazonEC2Client
 import com.amazonaws.services.ecs.AmazonECSClient
+import com.amazonaws.services.ecs.model.DescribeContainerInstancesRequest
 import com.typesafe.config.ConfigFactory
+import scala.collection.JavaConverters._
 
 import scala.util.Try
 
@@ -25,7 +27,8 @@ object ECSAkka extends ExtensionId[ECSAkka] with ExtensionIdProvider {
 
 class ECSAkka(system: ExtendedActorSystem) extends Extension {
   val settings = new EC2AkkaSettings(system)
-  val selfAddress = Cluster(system).selfAddress
+  val cluster = Cluster(system)
+  val selfAddress = cluster.selfAddress
   val address = selfAddress
   //  val address = if (settings.host.nonEmpty && settings.port.nonEmpty) {
   //    system.log.info(s"host:port read from environment variables=${settings.host}:${settings.port}")
@@ -39,8 +42,21 @@ class ECSAkka(system: ExtendedActorSystem) extends Extension {
     val creds = credsProviderChain.getCredentials
     val client = new AmazonEC2Client(creds)
     val ecsClient = new AmazonECSClient()
-    true
-  }.getOrElse(true)
+    ecsClient
+  }.get
+  
+  def downUnavailableNodes = {
+    cluster.state.unreachable
+    val describeRequest = new DescribeContainerInstancesRequest()
+    describeRequest.setCluster("seed")
+    val response = ecsClient.describeContainerInstances(describeRequest)
+    val instances = response.getContainerInstances.asScala
+    instances.foreach { instance =>
+      instance. 
+    }
+    
+    
+  }
 
   private def tryJoin(): Boolean = {
     //    val myId = "self"
