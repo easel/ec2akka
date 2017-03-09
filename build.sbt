@@ -1,7 +1,7 @@
 organization in ThisBuild := "com.theseventhsense.ec2akka"
 bintrayOrganization in ThisBuild := Some("7thsense")
 licenses in ThisBuild += ("MIT", url("http://opensource.org/licenses/MIT"))
-version in ThisBuild := "0.0.2"
+version in ThisBuild := "0.0.3-SNAPSHOT"
 scalaVersion in ThisBuild := "2.11.8"
 isSnapshot in ThisBuild := version.value.contains("SNAPSHOT")
 publishMavenStyle in ThisBuild := true
