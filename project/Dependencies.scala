@@ -5,6 +5,7 @@ object Dependencies {
     val Akka = "2.5.4"
     val AkkaHttp = "10.0.10"
     val AwsSdk = "1.11.206"
+    val ScalaLogging = "3.7.2"
     val ScalaTest = "3.0.1"
   }
 
@@ -38,5 +39,9 @@ object Dependencies {
 
   val AwsSdkECS = Seq(
     "com.amazonaws" % "aws-java-sdk-ecs" % Versions.AwsSdk % "provided"
+  )
+
+  val ScalaLogging = Seq(
+    "com.typesafe.scala-logging" %% "scala-logging" % Versions.ScalaLogging
   )
 }

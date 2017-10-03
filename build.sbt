@@ -2,7 +2,7 @@ organization in ThisBuild := "com.theseventhsense.ec2akka"
 bintrayOrganization in ThisBuild := Some("7thsense")
 licenses in ThisBuild += ("MIT", url("http://opensource.org/licenses/MIT"))
 version in ThisBuild := "0.0.6-SNAPSHOT"
-scalaVersion in ThisBuild := "2.11.11"
+scalaVersion in ThisBuild := "2.12.3"
 crossScalaVersions in ThisBuild := Seq("2.11.11", "2.12.3")
 isSnapshot in ThisBuild := version.value.contains("SNAPSHOT")
 publishMavenStyle in ThisBuild := true
@@ -37,8 +37,8 @@ lazy val akkaAwsProject = Project("aws-akka", file("./aws-akka"))
   .settings(Defaults.coreDefaultSettings: _*)
   .configs(IntegrationTest)
   .settings(Defaults.itSettings: _*)
-  .settings(libraryDependencies ++= Dependencies.ScalaTest)
   .settings(libraryDependencies ++= Dependencies.AwsSdkS3)
+  .settings(libraryDependencies ++= Dependencies.ScalaTest)
 
 lazy val akkaEc2Project = Project("ec2-akka", file("./ec2-akka"))
   .settings(Defaults.coreDefaultSettings: _*)
