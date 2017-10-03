@@ -16,7 +16,7 @@ val compileFlags = Seq("-encoding",
                        "-Xlog-reflective-calls",
                        "-Xlint")
 
-libraryDependencies in ThisBuild ++= Dependencies.Akka ++ Dependencies.AwsSdk
+libraryDependencies in ThisBuild ++= Dependencies.Akka
 
 val root = akkaEc2EcsProject
 
@@ -38,12 +38,14 @@ lazy val akkaAwsProject = Project("aws-akka", file("./aws-akka"))
   .configs(IntegrationTest)
   .settings(Defaults.itSettings: _*)
   .settings(libraryDependencies ++= Dependencies.ScalaTest)
+  .settings(libraryDependencies ++= Dependencies.AwsSdkS3)
 
 lazy val akkaEc2Project = Project("ec2-akka", file("./ec2-akka"))
   .settings(Defaults.coreDefaultSettings: _*)
   .settings(
     scalacOptions in Compile ++= compileFlags
   )
+  .settings(libraryDependencies ++= Dependencies.AwsSdkEC2)
 
 lazy val akkaEcsProject = Project("ecs-akka", file("./ecs-akka"))
   .dependsOn(akkaEc2Project)
@@ -51,3 +53,5 @@ lazy val akkaEcsProject = Project("ecs-akka", file("./ecs-akka"))
   .settings(
     scalacOptions in Compile ++= compileFlags
   )
+  .settings(libraryDependencies ++= Dependencies.AwsSdkEC2)
+  .settings(libraryDependencies ++= Dependencies.AwsSdkECS)

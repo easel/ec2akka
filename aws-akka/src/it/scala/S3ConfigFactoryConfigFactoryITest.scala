@@ -5,7 +5,7 @@ import org.scalatest.{MustMatchers, WordSpec}
 /**
   * Created by erik on 3/9/17.
   */
-class S3ConfigFactoryITest extends WordSpec with MustMatchers {
+class S3ConfigFactoryConfigFactoryITest extends WordSpec with MustMatchers {
   "the s3 config factory" should {
     "load a config from an s3 bucket" in {
       S3ConfigFactory.loadFromS3("7thsense-cfg-prd", "application.conf") mustBe a[Config]

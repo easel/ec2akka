@@ -2,9 +2,9 @@ import sbt._
 
 object Dependencies {
   object Versions {
-    val Akka = "2.4.17"
-    val AkkaHttp = "10.0.4"
-    val AwsSdk = "1.11.102"
+    val Akka = "2.5.4"
+    val AkkaHttp = "10.0.10"
+    val AwsSdk = "1.11.206"
     val ScalaTest = "3.0.1"
   }
 
@@ -28,4 +28,15 @@ object Dependencies {
     "com.amazonaws" % "aws-java-sdk" % Versions.AwsSdk % "provided"
   )
 
+  val AwsSdkS3 = Seq(
+    "com.amazonaws" % "aws-java-sdk-s3" % Versions.AwsSdk % "provided"
+  )
+
+  val AwsSdkEC2 = Seq(
+    "com.amazonaws" % "aws-java-sdk-ec2" % Versions.AwsSdk % "provided"
+  )
+
+  val AwsSdkECS = Seq(
+    "com.amazonaws" % "aws-java-sdk-ecs" % Versions.AwsSdk % "provided"
+  )
 }
