@@ -41,6 +41,7 @@ lazy val akkaAwsProject = Project("aws-akka", file("./aws-akka"))
   .settings(libraryDependencies ++= Dependencies.ScalaTest)
 
 lazy val akkaEc2Project = Project("ec2-akka", file("./ec2-akka"))
+  .dependsOn(akkaAwsProject)
   .settings(Defaults.coreDefaultSettings: _*)
   .settings(
     scalacOptions in Compile ++= compileFlags
