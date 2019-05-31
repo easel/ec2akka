@@ -1,22 +1,13 @@
 package com.theseventhsense.ec2akka
 
-import akka.actor.{
-  ActorSystem,
-  ExtendedActorSystem,
-  Extension,
-  ExtensionId,
-  ExtensionIdProvider
-}
-import akka.cluster.Cluster
-import com.amazonaws.auth._
-import com.amazonaws.auth.profile.ProfileCredentialsProvider
-import com.amazonaws.services.ec2.{AmazonEC2Client, AmazonEC2ClientBuilder}
-import com.amazonaws.services.ecs.{AmazonECSClient, AmazonECSClientBuilder}
-import com.amazonaws.services.ecs.model.DescribeContainerInstancesRequest
-import com.typesafe.config.ConfigFactory
-
 import scala.collection.JavaConverters._
 import scala.util.Try
+
+import akka.actor.{ActorSystem, ExtendedActorSystem, Extension, ExtensionId, ExtensionIdProvider}
+import akka.cluster.Cluster
+import com.amazonaws.services.ecs.AmazonECSClientBuilder
+import com.amazonaws.services.ecs.model.DescribeContainerInstancesRequest
+import com.typesafe.config.ConfigFactory
 
 /**
   * Created by erik on 5/19/16.

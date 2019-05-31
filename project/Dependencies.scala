@@ -2,11 +2,11 @@ import sbt._
 
 object Dependencies {
   object Versions {
-    val Akka = "2.5.4"
-    val AkkaHttp = "10.0.10"
-    val AwsSdk = "1.11.206"
-    val ScalaLogging = "3.7.2"
-    val ScalaTest = "3.0.1"
+    val Akka = "2.5.23"
+    val AkkaHttp = "10.1.8"
+    val AwsSdk = "1.11.563"
+    val ScalaLogging = "3.9.2"
+    val ScalaTest = "3.0.7"
   }
 
   val ScalaTest = Seq(
